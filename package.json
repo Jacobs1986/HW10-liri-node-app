@@ -16,5 +16,10 @@
   "bugs": {
     "url": "https://github.com/Jacobs1986/HW10-liri-node-app/issues"
   },
-  "homepage": "https://github.com/Jacobs1986/HW10-liri-node-app#readme"
+  "homepage": "https://github.com/Jacobs1986/HW10-liri-node-app#readme",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
+    "moment": "^2.24.0"
+  }
 }
