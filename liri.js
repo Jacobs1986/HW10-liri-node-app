@@ -1,13 +1,22 @@
 require("dotenv").config();
 const moment = require("moment");
+const Spotify = require("node-spotify-api");
+const axios = require("axios");
+
 
 // variable for the Spotify keys
 let keys = require("./keys.js");
-const axios = require("axios");
+let spotify = new Spotify({
+    id: keys.spotify.id,
+    secret: keys.spotify.secret
+});
+let spotifyID = spotify.credentials.id;
+let spotifySecret = spotify.credentials.secret;
 
 // spotify keys
 console.log(keys);
-console.log(keys.spotify);
+console.log(`Your spotify ID is: ${spotifyID}`);
+console.log(`Your spotify secret is: ${spotifySecret}`);
 
 let command = process.argv[2];
 let search = process.argv.slice(3).join("+");
@@ -37,8 +46,20 @@ concert = (artist) => {
     })
 }
 
+songSearch = (title) => {
+    spotify.search({type: 'track', query: title}, function(err, data){
+        if (err) {
+            return console.log("Error occured: " + err);
+        }
+        console.log(data.tracks.items[0].album.name);
+        console.log(data.tracks.items[0].artists[0].name);
+    })
+}
+
 // what to run when the user types
 if (command === "concert-this") {
     console.log(`I will show you concerts for ${searchDisplay}\n`);
     concert(search);
+} else if (command === "spotify-this-song") {
+    songSearch(search);
 }
