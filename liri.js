@@ -11,20 +11,11 @@ let spotify = new Spotify({
     id: keys.spotify.id,
     secret: keys.spotify.secret
 });
-let spotifyID = spotify.credentials.id;
-let spotifySecret = spotify.credentials.secret;
 
-// spotify keys
-// console.log(keys);
-// console.log(`Your spotify ID is: ${spotifyID}`);
-// console.log(`Your spotify secret is: ${spotifySecret}`);
-
+// variables for grabbing the commands
 let command = process.argv[2];
 let search = process.argv.slice(3).join("+");
 let searchDisplay = process.argv.slice(3).join(" ");
-
-// console.log(command)
-// console.log(search);
 
 // functions for the search
 concert = (artist) => {
@@ -84,7 +75,17 @@ movieSearch = (movie) => {
 }
 
 textReader = () => {
-    console.log("The random.txt will be read");
+    fs.readFile("random.txt", "utf8", (err, contents) => {
+        if (err) {
+            console.log(err)
+        } else {
+            array = contents.split(",");
+            command = array[0];
+            search = array[1].replace(/"/g, "").split(" ").join("+");
+            searchDisplay = array[1].replace(/"/g, "");
+            liri(command);
+        }
+    })
 }
 
 liri = () => {
