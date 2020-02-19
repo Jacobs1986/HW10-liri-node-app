@@ -49,7 +49,7 @@ concert = (artist) => {
 songSearch = (title) => {
     spotify.search({ type: 'track', query: title }, function (err, data) {
         if (err) {
-            return console.log("Error occured: " + err);
+            return console.log(`Error: ${err}`);
         }
         let dataArray = data.tracks.items;
         // console.log(dataArray[0].artists[0].name);
@@ -65,5 +65,9 @@ if (command === "concert-this") {
     console.log(`I will show you concerts for ${searchDisplay}\n`);
     concert(search);
 } else if (command === "spotify-this-song") {
-    songSearch(search);
+    if (search === "") {
+        songSearch("The Sign")
+    } else {
+        songSearch(search);
+    }
 }
