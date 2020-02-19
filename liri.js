@@ -60,6 +60,28 @@ songSearch = (title) => {
     })
 }
 
+movieSearch = (movie) => {
+    let queryURL = `http://www.omdbapi.com/?t=${movie}&y=&plot=short&apikey=trilogy`
+
+    // axios
+    axios.get(queryURL).then(response => {
+        let movieTitle = response.data.Title;
+        let movieYear = response.data.Year;
+        let movieIMBD = response.data.Ratings[0].Value;
+        let movieRotten = response.data.Ratings[1].Value;
+        let movieLanguage = response.data.Language;
+        let moviePlot = response.data.Plot;
+        let movieActors = response.data.Actors;
+        console.log(`Title: ${movieTitle}`);
+        console.log(`Year: ${movieYear}`);
+        console.log(`IMBD Raiting: ${movieIMBD}`);
+        console.log(`Rotten Tomatoes Rating: ${movieRotten}`);
+        console.log(`Language: ${movieLanguage}`);
+        console.log(`Plot: ${moviePlot}`);
+        console.log(`Actors: ${movieActors}`);
+    })
+}
+
 // what to run when the user types
 if (command === "concert-this") {
     console.log(`I will show you concerts for ${searchDisplay}\n`);
@@ -70,5 +92,11 @@ if (command === "concert-this") {
     } else {
         console.log(`Here are the results for the song titled ${searchDisplay}:`)
         songSearch(search);
+    }
+} else if (command === "movie-this") {
+    if (search === "") {
+        movieSearch("Mr. Nobody")
+    } else {
+        movieSearch(search);
     }
 }
