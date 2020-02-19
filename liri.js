@@ -14,16 +14,16 @@ let spotifyID = spotify.credentials.id;
 let spotifySecret = spotify.credentials.secret;
 
 // spotify keys
-console.log(keys);
-console.log(`Your spotify ID is: ${spotifyID}`);
-console.log(`Your spotify secret is: ${spotifySecret}`);
+// console.log(keys);
+// console.log(`Your spotify ID is: ${spotifyID}`);
+// console.log(`Your spotify secret is: ${spotifySecret}`);
 
 let command = process.argv[2];
 let search = process.argv.slice(3).join("+");
 let searchDisplay = process.argv.slice(3).join(" ");
 
-console.log(command)
-console.log(search);
+// console.log(command)
+// console.log(search);
 
 // functions for the search
 concert = (artist) => {
@@ -47,12 +47,16 @@ concert = (artist) => {
 }
 
 songSearch = (title) => {
-    spotify.search({type: 'track', query: title}, function(err, data){
+    spotify.search({ type: 'track', query: title }, function (err, data) {
         if (err) {
             return console.log("Error occured: " + err);
         }
-        console.log(data.tracks.items[0].album.name);
-        console.log(data.tracks.items[0].artists[0].name);
+        let dataArray = data.tracks.items;
+        // console.log(dataArray[0].artists[0].name);
+        console.log(`Artist: ${dataArray[0].artists[0].name}`)
+        console.log(`Song Name: ${dataArray[0].name}`);
+        console.log(`Preview Link: \n${dataArray[0].preview_url}`);
+        console.log(`Album Name: ${dataArray[0].album.name}`);
     })
 }
 
