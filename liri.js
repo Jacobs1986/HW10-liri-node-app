@@ -68,6 +68,7 @@ if (command === "concert-this") {
     if (search === "") {
         songSearch("The Sign")
     } else {
+        console.log(`Here are the results for the song titled ${searchDisplay}:`)
         songSearch(search);
     }
 }
