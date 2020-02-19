@@ -2,6 +2,7 @@ require("dotenv").config();
 const moment = require("moment");
 const Spotify = require("node-spotify-api");
 const axios = require("axios");
+const fs = require("fs");
 
 
 // variable for the Spotify keys
@@ -82,21 +83,33 @@ movieSearch = (movie) => {
     })
 }
 
-// what to run when the user types
-if (command === "concert-this") {
-    console.log(`I will show you concerts for ${searchDisplay}\n`);
-    concert(search);
-} else if (command === "spotify-this-song") {
-    if (search === "") {
-        songSearch("The Sign")
+textReader = () => {
+    console.log("The random.txt will be read");
+}
+
+liri = () => {
+    // what to run when the user types
+    if (command === "concert-this") {
+        console.log(`I will show you concerts for ${searchDisplay}\n`);
+        concert(search);
+    } else if (command === "spotify-this-song") {
+        if (search === "") {
+            songSearch("The Sign")
+        } else {
+            console.log(`Here are the results for the song titled ${searchDisplay}:`)
+            songSearch(search);
+        }
+    } else if (command === "movie-this") {
+        if (search === "") {
+            movieSearch("Mr. Nobody")
+        } else {
+            movieSearch(search);
+        }
+    } else if (command === "do-what-it-says") {
+        textReader();
     } else {
-        console.log(`Here are the results for the song titled ${searchDisplay}:`)
-        songSearch(search);
-    }
-} else if (command === "movie-this") {
-    if (search === "") {
-        movieSearch("Mr. Nobody")
-    } else {
-        movieSearch(search);
+        console.log("I don't recognize that command. Please try again.");
     }
 }
+
+liri();
